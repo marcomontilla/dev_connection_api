@@ -1,5 +1,7 @@
-const express = require("express");
-const router = express.Router();
+/** @format */
+
+const express = require('express')
+const router = express.Router()
 
 /**
  * @route  	GET api/profiles/test

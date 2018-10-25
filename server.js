@@ -1,3 +1,5 @@
+/** @format */
+
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
@@ -12,7 +14,7 @@ const app = express()
 const port = process.env.PORT || 5000
 
 // Body Parser Middleware
-app.use(bodyParser.urlencoded({ extended:false }))
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 // DB Config
@@ -20,9 +22,12 @@ const db = keys.mongoURI
 
 // Connect to MongoDB
 mongoose
-	.connect(db, { useNewUrlParser: true })
+	.connect(
+		db,
+		{ useNewUrlParser: true }
+	)
 	.then(() => console.log('MongoDB Connected'))
-	.catch((err) => console.log(err))
+	.catch(err => console.log(err))
 
 // Passport Middleware
 app.use(passport.initialize())
@@ -31,8 +36,7 @@ app.use(passport.initialize())
 require('./config/passport')(passport)
 
 // Use Routes
-app.use('/api/users', users )
-app.use('/api/profiles', profiles )
-app.use('/api/posts', posts )
-
+app.use('/api/users', users)
+app.use('/api/profiles', profiles)
+app.use('/api/posts', posts)
 app.listen(port, () => console.log(`Listening... port ${port}`))

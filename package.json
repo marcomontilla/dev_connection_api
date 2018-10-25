@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "prettier-watch": "onchange '*.js' -- prettier --write {{changed}}"
   },
   "author": "Marco Montilla",
   "license": "MIT",
@@ -16,11 +17,13 @@
     "gravatar": "^1.6.0",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.3.4",
+    "onchange": "^5.0.2",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "validator": "^10.8.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.4",
+    "prettier": "1.14.3"
   }
 }
