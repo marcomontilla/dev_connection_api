@@ -1,6 +1,4 @@
-/** @format */
-
-const keys = require('./../../config/keys')
+const keys = require('../../config/keys')
 const gravatar = require('gravatar')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
@@ -16,14 +14,14 @@ const validateLoginInput = require('../../validation/login')
 const User = require('../models/User')
 
 /**
- * @route  	GET api/users/test
+ * @route  	GET api/user/test
  * @desc   	Test user route
  * @access 	Public
  */
 router.get('/test', (req, res) => res.json({ msg: 'Users Works' }))
 
 /**
- * @route  	POST api/users/register
+ * @route  	POST api/user/register
  * @desc   	Register user route
  * @access 	Public
  */
@@ -68,7 +66,7 @@ router.post('/register', (req, res) => {
 })
 
 /**
- * @route  	POST api/users/test
+ * @route  	POST api/user/test
  * @desc   	Test user route
  * @access 	Public
  */
@@ -118,7 +116,7 @@ router.post('/login', (req, res) => {
 })
 
 /**
- * @route  	GET api/users/current
+ * @route  	GET api/user/current
  * @desc   	Return user route
  * @access 	Private
  */

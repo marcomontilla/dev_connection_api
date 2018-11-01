@@ -1,12 +1,10 @@
-/** @format */
-
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const keys = require('./config/keys')
 const passport = require('passport')
 
-const users = require('./routes/api/users')
+const user = require('./routes/api/user')
 const profile = require('./routes/api/profile')
 const posts = require('./routes/api/posts')
 
@@ -36,7 +34,7 @@ app.use(passport.initialize())
 require('./config/passport')(passport)
 
 // Use Routes
-app.use('/api/users', users)
+app.use('/api/user', user)
 app.use('/api/profile', profile)
 app.use('/api/posts', posts)
 app.listen(port, () => console.log(`Listening... port ${port}`))
