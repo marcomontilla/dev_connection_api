@@ -2,14 +2,9 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const ProfileSchema = new Schema({
-	name: {
-		type: String,
-		required: true,
-	},
-
 	user: {
 		type: Schema.Types.ObjectId,
-		ref: 'user',
+		ref: 'users',
 	},
 	handle: {
 		type: String,
@@ -35,7 +30,6 @@ const ProfileSchema = new Schema({
 	},
 	bio: {
 		type: String,
-		required: true,
 	},
 	githubusername: {
 		type: String,
@@ -121,4 +115,4 @@ const ProfileSchema = new Schema({
 	},
 })
 
-module.exports = Profile = mongoose.model('Profile', ProfileSchema)
+module.exports = Profile = mongoose.model('profiles', ProfileSchema)

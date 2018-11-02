@@ -12,15 +12,15 @@ const validateProfileInput = data => {
 		errors.handle = 'Handle has to between 2 and 4 characters'
 	}
 
-	if (!Validator.isEmpty(data.handle)) {
+	if (Validator.isEmpty(data.handle)) {
 		errors.handle = 'Profile handle is required'
 	}
 
-	if (!Validator.isEmpty(data.status)) {
+	if (Validator.isEmpty(data.status)) {
 		errors.status = 'Status field is required'
 	}
 
-	if (!Validator.isEmpty(data.skills)) {
+	if (Validator.isEmpty(data.skills)) {
 		errors.skills = 'Skills field is required'
 	}
 
