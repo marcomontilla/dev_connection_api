@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-    "prettier-watch": "onchange '**/**/**/*.js' -- prettier --write {{changed}} | nodemon server.js"
+    "prettier-watch": "onchange '**/**/**/*.js' -- prettier --write {{changed}} | nodemon server.js",
+    "dash": "nodemon --exec \"nodejs-dashboard\" server.js"
   },
   "author": "Marco Montilla",
   "license": "MIT",

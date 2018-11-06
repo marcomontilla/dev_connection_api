@@ -1,4 +1,3 @@
-// const keys = require('./../../config/keys')
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
@@ -10,8 +9,8 @@ const validateExperienceInput = require('../../validation/experience')
 const validateEducationInput = require('../../validation/education')
 
 // Load Models
-const Profile = require('../models/Profile')
-const User = require('../models/User')
+const Profile = require('../../models/Profile')
+const User = require('../../models/User')
 
 /**
  * @route  	GET api/profile/test
