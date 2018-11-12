@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import PropTypes from 'prop-types'
+import { withRouter } from 'react-router-dom'
 import classnames from 'classnames'
+import { connect } from 'react-redux'
+import { registerUser } from '../../actions/authActions'
 
 class Register extends Component {
 	state = {
@@ -11,12 +14,18 @@ class Register extends Component {
 		errors: {},
 	}
 
-	onChangeHandler = event => {
-		this.setState({ [event.target.name]: event.target.value })
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.errors) {
+			this.setState({ errors: nextProps.errors })
+		}
 	}
 
-	onSubmitHandler = event => {
-		event.preventDefault()
+	onChangeHandler = e => {
+		this.setState({ [e.target.name]: e.target.value })
+	}
+
+	onSubmitHandler = e => {
+		e.preventDefault()
 
 		const newUser = {
 			name: this.state.name,
@@ -25,10 +34,7 @@ class Register extends Component {
 			password2: this.state.password2,
 		}
 
-		axios
-			.post('/api/user/register', newUser)
-			.then(res => console.log(res.data))
-			.catch(err => this.setState({ errors: err.response.data }))
+		this.props.registerUser(newUser, this.props.history)
 	}
 
 	render() {
@@ -43,10 +49,7 @@ class Register extends Component {
 							<p className="lead text-center">
 								Create your DevConnector account
 							</p>
-							<form
-								action="create-profile.html"
-								onSubmit={this.onSubmitHandler}
-							>
+							<form noValidate onSubmit={this.onSubmitHandler}>
 								<div className="form-group">
 									<input
 										type="text"
@@ -59,7 +62,7 @@ class Register extends Component {
 										onChange={this.onChangeHandler}
 									/>
 									{errors.name && (
-										<div className="invalid-feedback	"> {errors.name}</div>
+										<div className="invalid-feedback">{errors.name}</div>
 									)}
 								</div>
 								<div className="form-group">
@@ -74,7 +77,7 @@ class Register extends Component {
 										onChange={this.onChangeHandler}
 									/>
 									{errors.email && (
-										<div className="invalid-feedback	"> {errors.email}</div>
+										<div className="invalid-feedback">{errors.email}</div>
 									)}
 									<small className="form-text text-muted">
 										This site uses Gravatar so if you want a profile image, use
@@ -93,7 +96,7 @@ class Register extends Component {
 										onChange={this.onChangeHandler}
 									/>
 									{errors.password && (
-										<div className="invalid-feedback	"> {errors.password}</div>
+										<div className="invalid-feedback">{errors.password}</div>
 									)}
 								</div>
 								<div className="form-group">
@@ -108,7 +111,7 @@ class Register extends Component {
 										onChange={this.onChangeHandler}
 									/>
 									{errors.password2 && (
-										<div className="invalid-feedback	"> {errors.password2}</div>
+										<div className="invalid-feedback">{errors.password2}</div>
 									)}
 								</div>
 								<input type="submit" className="btn btn-info btn-block mt-4" />
@@ -121,4 +124,18 @@ class Register extends Component {
 	}
 }
 
-export default Register
+Register.propTypes = {
+	registerUser: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired,
+	errors: PropTypes.object.isRequired,
+}
+
+const mapStateToProps = state => ({
+	auth: state.auth,
+	errors: state.errors,
+})
+
+export default connect(
+	mapStateToProps,
+	{ registerUser }
+)(withRouter(Register))
