@@ -1,38 +1,38 @@
-import React, { Component } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import jwt_decode from 'jwt-decode'
-import setAuthToken from './utils/setAuthToken'
-import { setCurrentUser, logoutUser } from './actions/authActions'
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
+import setAuthToken from './utils/setAuthToken';
+import { setCurrentUser, logoutUser } from './actions/authActions';
 
-import { Provider } from 'react-redux'
-import store from './store'
+import { Provider } from 'react-redux';
+import store from './store';
 
-import Navbar from './components/layout/Navbar'
-import Landing from './components/layout/Landing'
-import Footer from './components/layout/Footer'
-import Register from './components/auth/Register'
-import Login from './components/auth/Login'
-import Dashboard from './components/dashboard/Dashboard'
+import Navbar from './components/layout/Navbar';
+import Landing from './components/layout/Landing';
+import Footer from './components/layout/Footer';
+import Register from './components/auth/Register';
+import Login from './components/auth/Login';
+import Dashboard from './components/dashboard/Dashboard';
 
-import './App.css'
+import './App.css';
 
 // Check for token
 if (localStorage.jwtToken) {
 	// Set auth token header auth
-	setAuthToken(localStorage.jwtToken)
+	setAuthToken(localStorage.jwtToken);
 	// Decode token and get user info and exp
-	const decoded = jwt_decode(localStorage.jwtToken)
+	const decoded = jwt_decode(localStorage.jwtToken);
 	// Set user and isAuthenticated
-	store.dispatch(setCurrentUser(decoded))
+	store.dispatch(setCurrentUser(decoded));
 
 	// Check for expired token
-	const currentTime = Date.now() / 1000
+	const currentTime = Date.now() / 1000;
 	if (decoded.exp < currentTime) {
 		// Logout user
-		store.dispatch(logoutUser())
+		store.dispatch(logoutUser());
 		// TODO: Clear current Profile
 		// Redirect to login
-		window.location.href = '/login'
+		window.location.href = '/login';
 	}
 }
 
@@ -53,8 +53,8 @@ class App extends Component {
 					</div>
 				</Router>
 			</Provider>
-		)
+		);
 	}
 }
 
-export default App
+export default App;
