@@ -1,22 +1,12 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import InputGroup from '../common/InputGroup';
-
-/* 
-	<TextFieldGroup
-		name="email"
-		placeholder="Email Address"
-		value={this.state.email}
-		type="email"
-		info="This site uses Gravatar so if you want a profile image, use a Gravatar email"
-		error={errors.email}
-		onChange={this.onChangeHandler}
-	/> 
-*/
+import { createProfile } from '../../actions/profileActions';
 
 class CreateProfile extends Component {
 	state = {
@@ -37,6 +27,12 @@ class CreateProfile extends Component {
 		errors: {},
 	};
 
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.errors) {
+			this.setState({ errors: nextProps.errors });
+		}
+	}
+
 	onChangeHandler = e => {
 		this.setState({ [e.target.name]: e.target.value });
 	};
@@ -44,7 +40,23 @@ class CreateProfile extends Component {
 	onSubmitHandler = e => {
 		e.preventDefault();
 
-		console.log('submitted');
+		const profileData = {
+			handle: this.state.handle,
+			company: this.state.company,
+			website: this.state.website,
+			location: this.state.location,
+			status: this.state.status,
+			skills: this.state.skills,
+			githubusername: this.state.githubusername,
+			bio: this.state.bio,
+			youtube: this.state.youtube,
+			twitter: this.state.twitter,
+			facebook: this.state.facebook,
+			linkedin: this.state.linkedin,
+			instagram: this.state.instagram,
+		};
+
+		this.props.createProfile(profileData, this.props.history);
 	};
 
 	render() {
@@ -113,6 +125,7 @@ class CreateProfile extends Component {
 			{ label: 'Intern', value: 'Intern' },
 			{ label: 'Other', value: 'Other' },
 		];
+
 		return (
 			<div className="create-profile">
 				<div className="container">
@@ -232,4 +245,7 @@ const mapStateToProps = state => ({
 	errors: state.errors,
 });
 
-export default connect(mapStateToProps)(CreateProfile);
+export default connect(
+	mapStateToProps,
+	{ createProfile }
+)(withRouter(CreateProfile));
