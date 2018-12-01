@@ -11,19 +11,19 @@ import { createProfile } from '../../actions/profileActions';
 class CreateProfile extends Component {
 	state = {
 		displaySocialInputs: false,
-		handle: '',
-		company: '',
-		website: '',
-		location: '',
-		status: '',
-		skills: '',
 		githubusername: '',
-		bio: '',
-		youtube: '',
-		twitter: '',
+		instagram: '',
 		facebook: '',
 		linkedin: '',
-		instagram: '',
+		location: '',
+		company: '',
+		twitter: '',
+		website: '',
+		youtube: '',
+		handle: '',
+		status: '',
+		skills: '',
+		bio: '',
 		errors: {},
 	};
 
@@ -207,7 +207,8 @@ class CreateProfile extends Component {
 
 								<div className="mb-3">
 									<button
-										onClick={() => {
+										type="button"
+										onClick={(Event) => {
 											this.setState(prevState => ({
 												displaySocialInputs: !prevState.displaySocialInputs,
 											}));
