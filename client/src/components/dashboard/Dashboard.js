@@ -12,8 +12,8 @@ export class Dashboard extends Component {
 	}
 
 	onDeleteClickHandler = e => {
-		this.props.deleteAccount()
-	}
+		this.props.deleteAccount();
+	};
 
 	render() {
 		const { user } = this.props.auth;
@@ -29,14 +29,15 @@ export class Dashboard extends Component {
 				dashboardContent = (
 					<div>
 						<p className="lead text-muted">
-							Wellcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
+							Wellcome{' '}
+							<Link to={`/profile/${profile.handle}`}>{user.name}</Link>
 						</p>
 						<ProfileActions />
 						{/* TODO: exp and edu */}
-						<div style={{marginBottom: '60px'}}>
-							<button 
+						<div style={{ marginBottom: '60px' }}>
+							<button
 								onClick={this.onDeleteClickHandler}
-								
+								className="btn btn-danger"
 							>
 								Delete Account
 							</button>
