@@ -78,11 +78,11 @@ class CreateProfile extends Component {
 				skills: skillsCVS,
 				githubusername: profile.githubusername,
 				bio: profile.bio,
-				youtube: profile.youtube,
-				twitter: profile.twitter,
-				facebook: profile.facebook,
-				linkedin: profile.linkedin,
-				instagram: profile.instagram,
+				youtube: profile.social.youtube,
+				twitter: profile.social.twitter,
+				facebook: profile.social.facebook,
+				linkedin: profile.social.linkedin,
+				instagram: profile.social.instagram,
 			});
 		}
 	};
