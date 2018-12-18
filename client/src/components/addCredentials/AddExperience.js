@@ -32,7 +32,6 @@ export class AddExperience extends Component {
 	};
 
 	onCheckHandler = e => {
-		console.log('Checking');
 		this.setState({
 			current: !this.state.current,
 			disabled: !this.state.disabled,
