@@ -188,7 +188,7 @@ class CreateProfile extends Component {
 							<Link to="/dashboard" className="btn btn-light">
 								Go Back
 							</Link>
-							<h1 className="display-4 text-center">Create Your Profile</h1>
+							<h1 className="display-4 text-center">Edit Your Profile</h1>
 							<p className="lead text-center">
 								Let's get some information to make your profile stand out
 							</p>

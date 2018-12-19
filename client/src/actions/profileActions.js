@@ -6,6 +6,7 @@ import {
 	CLEAR_CURRENT_PROFILE,
 	GET_ERRORS,
 	SET_CURRENT_USER,
+	GET_PROFILES,
 } from './types';
 
 // Get current profile
@@ -25,6 +26,27 @@ export const getCurrentProfile = () => dispatch => {
 			dispatch({
 				type: GET_PROFILE,
 				payload: {},
+			})
+		);
+};
+
+// Get Profile by hanlde
+export const getProfileByHandle = handle => dispatch => {
+	// eslint-disable-next-line
+	dispatch(setProfileLoading());
+	axios
+		.get(`/api/profile/handle/${handle}`)
+		.then(res =>
+			dispatch({
+				type: GET_PROFILE,
+				payload: res.data,
+			})
+		)
+		// it is because there may be users without PROFILE
+		.catch(err =>
+			dispatch({
+				type: GET_PROFILE,
+				payload: null,
 			})
 		);
 };
@@ -100,6 +122,25 @@ export const deleteEducation = id => dispatch => {
 			dispatch({
 				type: GET_ERRORS,
 				payload: err.response.data,
+			})
+		);
+};
+
+// Get All Profiles
+export const getProfiles = () => dispatch => {
+	dispatch(setProfileLoading());
+	axios
+		.get('/api/profile/all')
+		.then(res =>
+			dispatch({
+				type: GET_PROFILES,
+				payload: res.data,
+			})
+		)
+		.catch(err =>
+			dispatch({
+				type: GET_PROFILE,
+				payload: null,
 			})
 		);
 };

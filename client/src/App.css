@@ -44,3 +44,23 @@ img {
   bottom: 0;
   width: 100%;
 }
+
+::selection {
+  background: rgba(38.6%, 82.4%, 99.1%, 0.6); /* Gecko Browsers */
+}
+
+::-moz-selection {
+  background: rgba(38.6%, 82.4%, 99.1%, 0.6); /* Gecko Browsers */
+}
+
+.trigger-parent {
+  transition: all .5s;
+}
+
+.trigger:hover {
+  /* transform: scale(1.1); */
+  border: 1px solid #000;              
+  background: #eee;
+  color: black;
+  cursor: pointer;
+}
