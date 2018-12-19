@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 export class ProfileGithub extends Component {
 	render() {
@@ -6,8 +6,8 @@ export class ProfileGithub extends Component {
 			<div>
 				<h1>TODO: PROFILE GITHUB</h1>
 			</div>
-		)
+		);
 	}
 }
 
-export default ProfileGithub
+export default ProfileGithub;
