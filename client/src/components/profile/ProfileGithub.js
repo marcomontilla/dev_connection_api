@@ -4,7 +4,7 @@ export class ProfileGithub extends Component {
 	render() {
 		return (
 			<div>
-				<h1>TODO: PROFILE CREDENTIALS</h1>
+				<h1>TODO: PROFILE GITHUB</h1>
 			</div>
 		)
 	}
