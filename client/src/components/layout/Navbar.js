@@ -23,7 +23,7 @@ class Navbar extends Component {
 					</Link>
 				</li>
 				<li className="nav-item">
-					<a href="" onClick={this.onLogoutHandler} className="nav-link">
+					<a href="#" onClick={this.onLogoutHandler} className="nav-link">
 						<img
 							className="rounded-circle"
 							src={user.avatar}
