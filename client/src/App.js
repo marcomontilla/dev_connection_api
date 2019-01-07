@@ -10,18 +10,20 @@ import store from './store';
 
 import PrivateRoute from './components/common/PrivateRoute';
 
-import Navbar from './components/layout/Navbar';
-import Landing from './components/layout/Landing';
-import Footer from './components/layout/Footer';
-import Register from './components/auth/Register';
-import Login from './components/auth/Login';
-import Dashboard from './components/dashboard/Dashboard';
-import CreateProfile from './components/createProfile/CreateProfile';
-import EditProfile from './components/editProfile/EditProfile';
 import AddExperience from './components/addCredentials/AddExperience';
+import CreateProfile from './components/createProfile/CreateProfile';
 import AddEducation from './components/addCredentials/AddEducation';
+import EditProfile from './components/editProfile/EditProfile';
+import Dashboard from './components/dashboard/Dashboard';
 import Profiles from './components/profiles/Profiles';
+import NotFound from './components/notFound/NotFound';
 import Profile from './components/profile/Profile';
+import Register from './components/auth/Register';
+import Landing from './components/layout/Landing';
+import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
+import Login from './components/auth/Login';
+import Post from './components/posts/Post';
 
 import './App.css';
 
@@ -90,6 +92,10 @@ class App extends Component {
 									component={AddEducation}
 								/>
 							</Switch>
+							<Switch>
+								<PrivateRoute exact path="/feed" component={Post} />
+							</Switch>
+							<Route exact path="/not-found" component={NotFound} />
 						</div>
 						<Footer />
 					</div>
