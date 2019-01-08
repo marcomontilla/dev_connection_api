@@ -118,77 +118,77 @@ router.post(
 		if (req.body.status) profileFields.status = req.body.status;
 		if (req.body.handle) profileFields.handle = req.body.handle;
 		req.body.githubusername
-        ? (profileFields.githubusername = req.body.githubusername)
-        : (profileFields.githubusername = '');
+			? (profileFields.githubusername = req.body.githubusername)
+			: (profileFields.githubusername = '');
 		req.body.location
-        ? (profileFields.location = req.body.location)
-        : (profileFields.location = '');
+			? (profileFields.location = req.body.location)
+			: (profileFields.location = '');
 		req.body.website
-        ? (profileFields.website = req.body.website)
-        : (profileFields.website = '');
+			? (profileFields.website = req.body.website)
+			: (profileFields.website = '');
 		req.body.company
-        ? (profileFields.company = req.body.company)
-        : (profileFields.company = '');
+			? (profileFields.company = req.body.company)
+			: (profileFields.company = '');
 		req.body.bio
-        ? (profileFields.bio = req.body.bio)
-        : (profileFields.bio = '');
-				
+			? (profileFields.bio = req.body.bio)
+			: (profileFields.bio = '');
+
 		// Skills - Split into array
 		if (typeof req.body.skills !== 'undefined') {
 			profileFields.skills = req.body.skills.split(',');
 		}
 
-		// Special
+		// Social
 		profileFields.social = {};
 
 		req.body.youtube
-        ? (profileFields.social.youtube = req.body.youtube)
-        : (profileFields.social.youtube = '');
+			? (profileFields.social.youtube = req.body.youtube)
+			: (profileFields.social.youtube = '');
 		req.body.twitter
-        ? (profileFields.social.twitter = req.body.twitter)
-        : (profileFields.social.twitter = '');
+			? (profileFields.social.twitter = req.body.twitter)
+			: (profileFields.social.twitter = '');
 		req.body.facebook
-        ? (profileFields.social.facebook = req.body.facebook)
-        : (profileFields.social.facebook = '');
+			? (profileFields.social.facebook = req.body.facebook)
+			: (profileFields.social.facebook = '');
 		req.body.linkedin
-        ? (profileFields.social.linkedin = req.body.linkedin)
-        : (profileFields.social.linkedin = '');
+			? (profileFields.social.linkedin = req.body.linkedin)
+			: (profileFields.social.linkedin = '');
 		req.body.instagram
-        ? (profileFields.social.instagram = req.body.instagram)
-        : (profileFields.social.instagram = '');
+			? (profileFields.social.instagram = req.body.instagram)
+			: (profileFields.social.instagram = '');
 
 		Profile.findOne({ user: req.user.id }).then(profile => {
-
 			if (profile) {
-				// Update
+				// Update Profile if exist
 				// Check if handle exist
-				Profile.findOne({ handle: profileFields.handle }).then(profile => {
-					if (profile && profile.handle  !== profileFields.handle) {
+				Profile.findOne({ handle: req.body.handle }).then(profile => {
+					// If profile exist and the user is different return error
+					if (profile && profile.user._id != req.user.id) {
 						errors.handle = 'That handle already exists';
-						res.status(400).json();
+						return res.status(400).json(errors);
 					} else {
-            // Update Profile
-            Profile.findOneAndUpdate(
+						// Update Profile
+						Profile.findOneAndUpdate(
 							{ user: req.user.id },
 							{ $set: profileFields },
 							{ new: true }
 						).then(profile => res.json(profile));
-          }
+					}
 				});
-
 			} else {
-				// Create
+				// Create A New Profile
 				// Check if handle exist
-				Profile.findOne({ handle: profileFields.handle }).then(profile => {
-					if (profile) {
+				Profile.findOne({ handle: req.body.handle }).then(profile => {
+					// If profile exist and the user is different return error
+					if (profile && profile._id !== req.user.id) {
 						errors.handle = 'That handle already exists';
-						res.status(400).json();
+						return res.status(400).json(errors);
 					} else {
-            // Save Profile
-            new Profile(profileFields)
-              .save()
-              .then(profile => res.json(profile));
-          }
+						// Save Profile
+						new Profile(profileFields)
+							.save()
+							.then(profile => res.json(profile));
+					}
 				});
 			}
 		});
