@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
-// eslint-disable-next-line
 import {
 	clearCurrentProfile,
+	// eslint-disable-next-line
 	getCurrentProfile,
 } from './actions/profileActions';
 

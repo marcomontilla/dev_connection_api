@@ -1,4 +1,5 @@
 import axios from 'axios';
+import swal from 'sweetalert';
 
 import {
 	GET_PROFILE,
@@ -147,22 +148,50 @@ export const getProfiles = () => dispatch => {
 
 // Delete account & profile
 export const deleteAccount = () => dispatch => {
-	if (window.confirm('Are you sure? This can NOT be undone!')) {
-		axios
-			.delete('/api/profile')
-			.then(res =>
-				dispatch({
-					type: SET_CURRENT_USER,
-					payload: {},
-				})
-			)
-			.catch(err =>
-				dispatch({
-					type: GET_ERRORS,
-					payload: err.response.data,
-				})
-			);
-	}
+	swal({
+		title: 'Are you sure?',
+		text: 'Once deleted, This can NOT be undone!',
+		icon: 'warning',
+		buttons: true,
+		dangerMode: true,
+	}).then(willDelete => {
+		if (willDelete) {
+			swal('Poof! Your Post has been deleted!', {
+				icon: 'success',
+			});
+			axios
+				.delete('/api/profile')
+				.then(res =>
+					dispatch({
+						type: SET_CURRENT_USER,
+						payload: {},
+					})
+				)
+				.catch(err =>
+					dispatch({
+						type: GET_ERRORS,
+						payload: err.response.data,
+					})
+				);
+		}
+	});
+
+	// if (window.confirm('Are you sure? This can NOT be undone!')) {
+	// 	axios
+	// 		.delete('/api/profile')
+	// 		.then(res =>
+	// 			dispatch({
+	// 				type: SET_CURRENT_USER,
+	// 				payload: {},
+	// 			})
+	// 		)
+	// 		.catch(err =>
+	// 			dispatch({
+	// 				type: GET_ERRORS,
+	// 				payload: err.response.data,
+	// 			})
+	// 		);
+	// }
 };
 
 // Profile loading
