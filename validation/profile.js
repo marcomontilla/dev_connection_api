@@ -25,37 +25,67 @@ const validateProfileInput = data => {
 	}
 
 	if (!isEmpty(data.website)) {
-		if (!Validator.isURL(data.website, { protocols: ['http','https','ftp'], require_protocol: true})) {
+		if (
+			!Validator.isURL(data.website, {
+				protocols: ['http', 'https', 'ftp'],
+				require_protocol: true,
+			})
+		) {
 			errors.website = 'Not a valid URL';
 		}
 	}
 
 	if (!isEmpty(data.youtube)) {
-		if (!Validator.isURL(data.youtube, { protocols: ['http','https','ftp'], require_protocol: true})) {
+		if (
+			!Validator.isURL(data.youtube, {
+				protocols: ['http', 'https', 'ftp'],
+				require_protocol: true,
+			})
+		) {
 			errors.youtube = 'Not a valid URL';
 		}
 	}
 
 	if (!isEmpty(data.twitter)) {
-		if (!Validator.isURL(data.twitter, { protocols: ['http','https','ftp'], require_protocol: true})) {
+		if (
+			!Validator.isURL(data.twitter, {
+				protocols: ['http', 'https', 'ftp'],
+				require_protocol: true,
+			})
+		) {
 			errors.twitter = 'Not a valid URL';
 		}
 	}
 
 	if (!isEmpty(data.facebook)) {
-		if (!Validator.isURL(data.facebook, { protocols: ['http','https','ftp'], require_protocol: true})) {
+		if (
+			!Validator.isURL(data.facebook, {
+				protocols: ['http', 'https', 'ftp'],
+				require_protocol: true,
+			})
+		) {
 			errors.facebook = 'Not a valid URL';
 		}
 	}
 
 	if (!isEmpty(data.linkedin)) {
-		if (!Validator.isURL(data.linkedin, { protocols: ['http','https','ftp'], require_protocol: true})) {
+		if (
+			!Validator.isURL(data.linkedin, {
+				protocols: ['http', 'https', 'ftp'],
+				require_protocol: true,
+			})
+		) {
 			errors.linkedin = 'Not a valid URL';
 		}
 	}
 
 	if (!isEmpty(data.instagram)) {
-		if (!Validator.isURL(data.instagram, { protocols: ['http','https','ftp'], require_protocol: true})) {
+		if (
+			!Validator.isURL(data.instagram, {
+				protocols: ['http', 'https', 'ftp'],
+				require_protocol: true,
+			})
+		) {
 			errors.instagram = 'Not a valid URL';
 		}
 	}

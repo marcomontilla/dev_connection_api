@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { addPost } from '../../actions/postActions';
-import isEmpty from '../../validation/isEmpty';
 
 class PostForm extends Component {
 	state = {
@@ -15,7 +14,7 @@ class PostForm extends Component {
 		if (nextProps.errors) {
 			this.setState({ errors: nextProps.errors });
 		}
-	}
+	};
 
 	onChangeHandler = e => {
 		this.setState({ [e.target.name]: e.target.value });

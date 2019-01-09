@@ -3,7 +3,11 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
-import { clearCurrentProfile, getCurrentProfile } from './actions/profileActions';
+// eslint-disable-next-line
+import {
+	clearCurrentProfile,
+	getCurrentProfile,
+} from './actions/profileActions';
 
 import { Provider } from 'react-redux';
 import store from './store';
@@ -23,7 +27,7 @@ import Landing from './components/layout/Landing';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Login from './components/auth/Login';
-import Post from './components/posts/Post';
+import Posts from './components/posts/Posts';
 
 import './App.css';
 
@@ -95,7 +99,7 @@ class App extends Component {
 								/>
 							</Switch>
 							<Switch>
-								<PrivateRoute exact path="/feed" component={Post} />
+								<PrivateRoute exact path="/feed" component={Posts} />
 							</Switch>
 							<Route exact path="/not-found" component={NotFound} />
 						</div>
