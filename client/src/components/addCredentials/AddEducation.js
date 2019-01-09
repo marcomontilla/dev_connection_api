@@ -9,9 +9,9 @@ import { addEducation } from '../../actions/profileActions';
 
 export class AddEducation extends Component {
 	state = {
-		company: '',
-		title: '',
-		location: '',
+		school: '',
+		degree: '',
+		fieldofstudy: '',
 		from: '',
 		to: '',
 		current: false,

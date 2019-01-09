@@ -6,6 +6,13 @@ import Moment from 'react-moment';
 import { deleteExperience } from '../../actions/profileActions';
 
 export class Experience extends Component {
+	/**
+	 * To bind a function without state in a Class Component
+	 *
+	 * onClick={this.onDeleteClickHandler.bind(this, exp._id)}
+	 * or
+	 * onClick={e => this.onDeleteClickHandler(exp._id)}
+	 */
 	onDeleteClickHandler = id => {
 		this.props.deleteExperience(id);
 	};
@@ -25,7 +32,7 @@ export class Experience extends Component {
 				</td>
 				<td>
 					<button
-						onClick={this.onDeleteClickHandler.bind(this, exp._id)}
+						onClick={e => this.onDeleteClickHandler(exp._id)}
 						className="btn btn-danger"
 					>
 						Delete
