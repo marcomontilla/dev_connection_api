@@ -27,7 +27,6 @@ export class AddExperience extends Component {
 	}
 
 	onChangeHandler = e => {
-		// console.log('Changing')
 		this.setState({ [e.target.name]: e.target.value });
 	};
 

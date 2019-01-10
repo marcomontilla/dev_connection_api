@@ -27,12 +27,10 @@ export class AddEducation extends Component {
 	}
 
 	onChangeHandler = e => {
-		// console.log('Changing')
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
 	onCheckHandler = e => {
-		console.log('Checking');
 		this.setState({
 			current: !this.state.current,
 			disabled: !this.state.disabled,

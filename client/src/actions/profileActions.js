@@ -1,5 +1,6 @@
 import axios from 'axios';
 import swal from 'sweetalert';
+import { clearErrors } from './commonActions';
 
 import {
 	GET_PROFILE,
@@ -54,6 +55,7 @@ export const getProfileByHandle = handle => dispatch => {
 
 // Create Profile
 export const createProfile = (profileData, history) => dispatch => {
+	dispatch(clearErrors());
 	axios
 		.post('/api/profile', profileData)
 		.then(res => history.push('/dashboard'))
@@ -67,6 +69,7 @@ export const createProfile = (profileData, history) => dispatch => {
 
 // Add Experience
 export const addExperience = (expData, history) => dispatch => {
+	dispatch(clearErrors());
 	axios
 		.post('/api/profile/experience', expData)
 		.then(res => history.push('/dashboard'))
@@ -80,6 +83,7 @@ export const addExperience = (expData, history) => dispatch => {
 
 // Add Education
 export const addEducation = (eduData, history) => dispatch => {
+	dispatch(clearErrors());
 	axios
 		.post('/api/profile/education', eduData)
 		.then(res => history.push('/dashboard'))
@@ -93,6 +97,7 @@ export const addEducation = (eduData, history) => dispatch => {
 
 // Delete Experience
 export const deleteExperience = id => dispatch => {
+	dispatch(clearErrors());
 	axios
 		.delete(`/api/profile/experience/${id}`)
 		.then(res =>
@@ -157,8 +162,13 @@ export const deleteAccount = () => dispatch => {
 	}).then(willDelete => {
 		if (willDelete) {
 			swal('Poof! Your Post has been deleted!', {
+				buttons: false,
 				icon: 'success',
+				closeOnClickOutside: true,
+				closeOnEsc: true,
+				timer: 500,
 			});
+			dispatch(clearErrors());
 			axios
 				.delete('/api/profile')
 				.then(res =>
@@ -175,23 +185,6 @@ export const deleteAccount = () => dispatch => {
 				);
 		}
 	});
-
-	// if (window.confirm('Are you sure? This can NOT be undone!')) {
-	// 	axios
-	// 		.delete('/api/profile')
-	// 		.then(res =>
-	// 			dispatch({
-	// 				type: SET_CURRENT_USER,
-	// 				payload: {},
-	// 			})
-	// 		)
-	// 		.catch(err =>
-	// 			dispatch({
-	// 				type: GET_ERRORS,
-	// 				payload: err.response.data,
-	// 			})
-	// 		);
-	// }
 };
 
 // Profile loading

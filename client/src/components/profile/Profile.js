@@ -19,8 +19,6 @@ class Profile extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log(nextProps);
-
 		if (nextProps.profile.profile === null && this.props.profile.loading) {
 			this.props.history.push('/not-found');
 		}

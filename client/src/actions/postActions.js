@@ -1,5 +1,6 @@
 import axios from 'axios';
 import swal from 'sweetalert';
+import { clearErrors } from './commonActions';
 
 import {
 	ADD_POST,
@@ -7,12 +8,14 @@ import {
 	POST_LOADING,
 	GET_POSTS,
 	DELETE_POST,
+	GET_POST,
 } from './types';
 
 // Add Post
 export const addPost = postData => dispatch => {
+	dispatch(clearErrors());
 	axios
-		.post('api/posts', postData)
+		.post('/api/posts', postData)
 		.then(res =>
 			dispatch({
 				type: ADD_POST,
@@ -31,10 +34,29 @@ export const addPost = postData => dispatch => {
 export const getPosts = () => dispatch => {
 	dispatch(setPostLoading());
 	axios
-		.get('api/posts')
+		.get('/api/posts')
 		.then(res =>
 			dispatch({
 				type: GET_POSTS,
+				payload: res.data,
+			})
+		)
+		.catch(err =>
+			dispatch({
+				type: GET_POSTS,
+				payload: null,
+			})
+		);
+};
+
+// Get Post
+export const getPost = id => dispatch => {
+	dispatch(setPostLoading());
+	axios
+		.get(`/api/posts/${id}`)
+		.then(res =>
+			dispatch({
+				type: GET_POST,
 				payload: res.data,
 			})
 		)
@@ -57,8 +79,13 @@ export const deletePost = id => dispatch => {
 	}).then(willDelete => {
 		if (willDelete) {
 			swal('Poof! Your Post has been deleted!', {
+				buttons: false,
 				icon: 'success',
+				closeOnClickOutside: true,
+				closeOnEsc: true,
+				timer: 500,
 			});
+			dispatch(clearErrors());
 			axios
 				.delete(`/api/posts/${id}`)
 				.then(res =>
@@ -75,27 +102,66 @@ export const deletePost = id => dispatch => {
 				);
 		}
 	});
+};
 
-	// if (window.confirm('Are you sure? This can NOT be undone!')) {
-	// 	axios
-	// 		.delete(`/api/posts/${id}`)
-	// 		.then(res =>
-	// 			dispatch({
-	// 				type: DELETE_POST,
-	// 				payload: id,
-	// 			})
-	// 		)
-	// 		.catch(err =>
-	// 			dispatch({
-	// 				type: GET_ERRORS,
-	// 				payload: err.response.data,
-	// 			})
-	// 		);
-	// }
+// Delete Comment
+export const deleteComment = (postId, comment_id) => dispatch => {
+	swal({
+		title: 'Are you sure?',
+		text: 'Once deleted, This can NOT be undone!',
+		icon: 'warning',
+		buttons: true,
+		dangerMode: true,
+	}).then(willDelete => {
+		if (willDelete) {
+			swal('Poof! Your Comment has been deleted!', {
+				buttons: false,
+				icon: 'success',
+				closeOnClickOutside: true,
+				closeOnEsc: true,
+				timer: 500,
+			});
+			dispatch(clearErrors());
+			axios
+				.delete(`/api/posts/comment/${postId}/${comment_id}`)
+				.then(res =>
+					dispatch({
+						type: GET_POST,
+						payload: res.data,
+					})
+				)
+				.catch(err =>
+					dispatch({
+						type: GET_ERRORS,
+						payload: err.response.data,
+					})
+				);
+		}
+	});
+};
+
+// Add Comment
+export const addComment = (id, commentData) => dispatch => {
+	dispatch(clearErrors());
+	axios
+		.post(`/api/posts/comment/${id}`, commentData)
+		.then(res =>
+			dispatch({
+				type: GET_POST,
+				payload: res.data,
+			})
+		)
+		.catch(err =>
+			dispatch({
+				type: GET_ERRORS,
+				payload: err.response.data,
+			})
+		);
 };
 
 // Add Like
 export const addLike = id => dispatch => {
+	dispatch(clearErrors());
 	axios
 		.post(`/api/posts/like/${id}`)
 		.then(res => dispatch(getPosts()))
@@ -109,6 +175,7 @@ export const addLike = id => dispatch => {
 
 // Remove Like
 export const removeLike = id => dispatch => {
+	dispatch(clearErrors());
 	axios
 		.post(`/api/posts/unlike/${id}`)
 		.then(res => dispatch(getPosts()))

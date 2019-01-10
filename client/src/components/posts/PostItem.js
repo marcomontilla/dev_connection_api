@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import { deletePost, addLike, removeLike } from '../../actions/postActions';
+import Moment from 'react-moment';
 
-// eslint-disable-next-line
-import classnames from 'classnames';
-
-export class PostItem extends Component {
+class PostItem extends Component {
 	onDeleteHandler = id => {
 		this.props.deletePost(id);
 	};
@@ -20,13 +19,6 @@ export class PostItem extends Component {
 		}
 	};
 
-	// onLikeHandler = id => {
-	// 	this.props.addLike(id);
-	// };
-	// onUnlikeHandler = id => {
-	// 	this.props.removeLike(id);
-	// };
-
 	findUserLike(likes) {
 		const { auth } = this.props;
 
@@ -38,63 +30,95 @@ export class PostItem extends Component {
 	}
 
 	render() {
-		const { post, auth } = this.props;
+		const { post, auth, showActions } = this.props;
 
 		return (
-			<div className="card card-body mb-3">
-				<div className="row">
-					<div className="col-md-2">
-						<Link to="/profiles/handle">
-							<img
-								className="rounded-circle d-none d-md-block"
-								src={post.avatar}
-								alt=""
-							/>
-						</Link>
-						<br />
-						<p className="text-center">{post.name}</p>
-					</div>
-					<div className="col-md-10">
-						<p className="lead">{post.text}</p>
-						<button
-							// onClick={e => this.onLikeHandler(post._id)}
-							onClick={e => this.onLikeHandler(post._id, post.likes)}
-							type="button"
-							className="btn btn-light mr-1"
-						>
-							<i
-								className={classnames('fas fa-heart', {
-									'text-danger': this.findUserLike(post.likes),
-								})}
-							/>{' '}
-							<span className="badge badge-light"> {post.likes.length}</span>
-						</button>
-						{/* <button
-							onClick={e => this.onUnlikeHandler(post._id)}
-							type="button"
-							className="btn btn-light mr-1"
-						>
-							<i className="text-secondary fas fa-thumbs-down" />
-						</button> */}
-						<Link to={`/post/${post._id}`} className="btn btn-info mr-1">
-							Comments
-						</Link>
-						{post.user === auth.user.id ? (
-							<button
-								onClick={e => this.onDeleteHandler(post._id)}
-								type="button"
-								className="btn btn-outline-danger mr-1 text-center"
-							>
-								<i className="fas fa-trash" />
-							</button>
-						) : null}
-						{/* */}
+			<div className="card mb-3">
+				{!showActions ? (
+					<span>
+						<div className="card-header">
+							<div className="row">
+								<div className="col text-left">
+									<Moment format="YYYY/MM/DD hh:mm:ss A">{post.date}</Moment>
+								</div>
+								<div className="col text-right">
+									<i
+										className={classnames('fas fa-heart', {
+											'text-danger': this.findUserLike(post.likes),
+										})}
+									/>{' '}
+									<span className="badge badge-light">
+										{' '}
+										{post.likes.length}
+									</span>
+								</div>
+							</div>
+						</div>
+					</span>
+				) : null}
+				<div className="card-body">
+					<div className="row">
+						<div className="col-md-2">
+							<Link to="/profiles">
+								<img
+									className="rounded-circle d-none d-md-block"
+									src={post.avatar}
+									alt=""
+								/>
+							</Link>
+						</div>
+						<div className="col-md-10">
+							<blockquote className="blockquote">
+								<p className="mb-0">{post.text}</p>
+								<footer className="blockquote-footer text-right">
+									{post.name}
+								</footer>
+							</blockquote>
+
+							{showActions ? (
+								<span>
+									<div className="btn-group" role="group" aria-label="ACTIONS">
+										<button
+											onClick={e => this.onLikeHandler(post._id, post.likes)}
+											type="button"
+											className="btn btn-light"
+										>
+											<i
+												className={classnames('fas fa-heart', {
+													'text-danger': this.findUserLike(post.likes),
+												})}
+											/>{' '}
+											<span className="badge badge-light">
+												{' '}
+												{post.likes.length}
+											</span>
+										</button>
+										<Link to={`/post/${post._id}`} className="btn btn-info">
+											Comments
+										</Link>
+										{post.user === auth.user.id ? (
+											<button
+												onClick={e => this.onDeleteHandler(post._id)}
+												type="button"
+												className="btn btn-danger text-center"
+											>
+												<i className="fas fa-trash" />
+											</button>
+										) : null}
+									</div>
+								</span>
+							) : null}
+						</div>
 					</div>
 				</div>
 			</div>
 		);
 	}
 }
+
+PostItem.defaultProps = {
+	showActions: true,
+};
 
 PostItem.propTypes = {
 	addLike: PropTypes.func.isRequired,
