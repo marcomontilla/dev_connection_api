@@ -10,7 +10,8 @@
 		"server": "nodemon server.js",
 		"client": "npm start --prefix client",
 		"dev": "npm-run-all --parallel server client",
-		"dev-watch": "npm-run-all --parallel prettier-code server client"
+		"dev-watch": "npm-run-all --parallel prettier-code server client",
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
 	},
 	"author": "Marco Montilla",
 	"license": "MIT",
