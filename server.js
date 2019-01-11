@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const path = require('path');
 
-const users = require('./routes/api/users');
+const user = require('./routes/api/user');
 const profile = require('./routes/api/profile');
 const posts = require('./routes/api/posts');
 
